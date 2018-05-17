@@ -1,0 +1,10 @@
+// user.proto
+syntax = "proto3";
+package com.parking.mode;
+
+message UserBase {
+    uint64 		uid   	 = 1;		// 用户编号
+    uint32 		sex	 	 = 2;
+    string 		nickName = 3;
+    uint32 		age 	 = 4;
+}
