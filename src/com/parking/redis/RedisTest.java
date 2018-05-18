@@ -4,7 +4,7 @@ import redis.clients.jedis.Jedis;
 
 import com.parking.mode.User.UserBase;
 
-public class ClientTest {
+public class RedisTest {
 	
 	public static void main(String[] args) throws Exception {
 		
@@ -19,7 +19,12 @@ public class ClientTest {
 		user.setAge(18);
 		user.setNickName("dengcs");
 		
-		jedis.set("1001", "dengcs");
+		jedis.set("1001".getBytes(), user.build().toByteArray());
+		
+		byte dd[] = jedis.get("1001".getBytes());
+		
+		UserBase juser = UserBase.parseFrom(dd);
+		System.out.println("dcs--"+juser.getUid()+","+juser.getAge()+","+juser.getNickName());
 		 
 		RedisClient.close(jedis);
 	}
