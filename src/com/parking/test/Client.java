@@ -58,10 +58,11 @@ public class Client {
 				bdMessage.setHeader(bdHeader);
 				bdMessage.setPayload(bdAwesome.build().toByteString());
 				
-				for(int i=0;i<1000;i++)
+				for(int i=0;i<10;i++)
 				{
 					ch.writeAndFlush(bdMessage.build());
 				}
+				
 				// Close the connection.
 				ch.close();
 			// Print the response at last but not least.

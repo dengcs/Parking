@@ -2,13 +2,15 @@ package com.parking.main;
 
 import com.parking.protobuf.Base.NetMessage;
 
-import com.parking.protobuf.Awesome.AwesomeMessage;
-
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.AttributeKey;
 
-public class ServerHandler extends SimpleChannelInboundHandler<NetMessage>{
+public class ServerHandler extends ChannelInboundHandlerAdapter{	
 
+	private final AttributeKey<ServerSession> SERVERSESSIONKEY = AttributeKey.valueOf("S_SESSION_KEY");
+	
+	
 	@Override
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
 		ctx.flush();
@@ -19,17 +21,31 @@ public class ServerHandler extends SimpleChannelInboundHandler<NetMessage>{
 		cause.printStackTrace();
 		ctx.close();
 	}
+	
+	@Override
+	public void channelActive(ChannelHandlerContext ctx) throws Exception {
+		
+		ServerSession session = new ServerSession();
+		ctx.channel().attr(SERVERSESSIONKEY).set(session);
+		session.setChannel(ctx.channel());
+		session.onActive();
+		
+		super.channelActive(ctx);
+	}	
 
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, NetMessage msg) throws Exception {
-		String protoName = msg.getHeader().getProto();
-		String msgString = msg.toByteString().toString();
-		System.out.println(protoName);
-		System.out.println(msgString);
+	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		
-		AwesomeMessage bdAwesome = AwesomeMessage.parseFrom(msg.getPayload());
+		ServerSession session = ctx.channel().attr(SERVERSESSIONKEY).get();
+		session.onInActive();
 		
-		System.out.println(bdAwesome.getAwesomeField());
+		super.channelInactive(ctx);		
+	}	
+	
+	@Override
+	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+		NetMessage netMsg = (NetMessage)msg;
+		ServerSession session = ctx.channel().attr(SERVERSESSIONKEY).get();
+		session.onMessage(netMsg);
 	}
-
 }
