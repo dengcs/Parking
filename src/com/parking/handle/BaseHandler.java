@@ -13,13 +13,19 @@ import com.parking.protobuf.Base.NetMessage;
 import io.netty.channel.Channel;
 
 public abstract class BaseHandler {
+	private long  uid = 0l; //角色id
 	private Channel channel = null;
-	
 	private Set<String> protoSet = new HashSet<String>();
 	
 	public abstract void register();
 	public abstract boolean messageHandle(String protoName, ByteString payload);	
 	
+	public long getUid() {
+		return uid;
+	}
+	public void setUid(long uid) {
+		this.uid = uid;
+	}
 	public void setProtocol(String protoName)
 	{
 		protoSet.add(protoName);
@@ -76,7 +82,7 @@ public abstract class BaseHandler {
 			
 			bdError.setCode(0);
 			
-			bdHeader.setUid(1001);
+			bdHeader.setUid(uid);
 			bdHeader.setProto(protoName);
 			
 			bdMessage.setError(bdError);
