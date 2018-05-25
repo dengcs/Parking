@@ -10,19 +10,21 @@ public class ServerSession {
 	
 	private Channel channel = null;
 	
-	private HandleManager handleManager = new HandleManager();
+	private HandleManager handleManager = null;
 	
 	public ServerSession()
 	{
+		handleManager = new HandleManager();
 	}	
 
 	public Channel getChannel() {
 		return channel;
 	}
 
-
 	public void setChannel(Channel channel) {
 		this.channel = channel;
+		
+		this.handleManager.setChannel(channel);
 	}
 
 	//创建连接

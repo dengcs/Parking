@@ -40,9 +40,9 @@ public class Server {
                 	 ChannelPipeline p = ch.pipeline();
                 	 p.addLast(new ProtobufVarint32FrameDecoder());
                 	 p.addLast(new ProtobufDecoder(NetMessage.getDefaultInstance()));
+                	 p.addLast(new ServerHandler());
                 	 p.addLast(new ProtobufVarint32LengthFieldPrepender());
                 	 p.addLast(new ProtobufEncoder());
-                     p.addLast(new ServerHandler());
                  }
              });
             ChannelFuture f = b.bind(port).sync();

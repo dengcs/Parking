@@ -38,8 +38,13 @@ public class AwesomeHandler extends BaseHandler{
 	@ProtocolMethod
 	public void AwesomeMessage(ByteString payload) throws InvalidProtocolBufferException
 	{
-		AwesomeMessage bdAwesome = AwesomeMessage.parseFrom(payload);
+		AwesomeMessage bdAwesome = AwesomeMessage.parseFrom(payload);	
 		
 		System.out.println(bdAwesome.getAwesomeField());
+		
+		AwesomeMessage.Builder bdAwesome2 = AwesomeMessage.newBuilder();
+		bdAwesome2.setAwesomeField("dcs---server");
+		
+		this.responseMessage("AwesomeMessage", bdAwesome2.build().toByteString());
 	}
 }
