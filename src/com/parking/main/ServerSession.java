@@ -1,5 +1,7 @@
 package com.parking.main;
 
+import org.apache.log4j.Logger;
+
 import com.google.protobuf.ByteString;
 import com.parking.manage.HandleManager;
 import com.parking.protobuf.Base.NetMessage;
@@ -11,6 +13,9 @@ public class ServerSession {
 	private Channel channel = null;
 	
 	private HandleManager handleManager = null;
+	
+	private static final Logger log = Logger.getLogger(ServerSession.class);
+
 	
 	public ServerSession()
 	{
@@ -30,13 +35,13 @@ public class ServerSession {
 	//创建连接
 	public void onActive()
 	{
-		System.out.println("onActive----------");
+		log.debug("onActive----------");
 	}
 	
 	// 断开连接
 	public void onInActive()
 	{
-		System.out.println("onInActive----------");
+		log.debug("onInActive----------");
 	}
 	
 	//收到消息

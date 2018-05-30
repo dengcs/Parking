@@ -1,5 +1,7 @@
 package com.parking.test;
 
+import org.apache.log4j.Logger;
+
 import com.parking.protobuf.Base.NetError;
 import com.parking.protobuf.Base.NetHeader;
 import com.parking.protobuf.Base.NetMessage;
@@ -13,7 +15,7 @@ import io.netty.handler.timeout.IdleStateEvent;
 
 public class ClientHandler extends SimpleChannelInboundHandler<NetMessage> {
 
-	
+	private static final Logger log = Logger.getLogger(ClientHandler.class);
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
 		
@@ -54,7 +56,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<NetMessage> {
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, NetMessage msg) throws Exception {
-		System.out.println(msg.toString());
+		log.debug(msg.toString());
 	}
 
 	@Override
@@ -65,12 +67,12 @@ public class ClientHandler extends SimpleChannelInboundHandler<NetMessage> {
 			
 			if (event.state().equals(IdleState.READER_IDLE)) {
 				//未进行读操作
-				System.out.println("READER_IDLE");
+				log.debug("READER_IDLE");
 			} else if (event.state().equals(IdleState.WRITER_IDLE)) {
-				System.out.println("WRITER_IDLE");
+				log.debug("WRITER_IDLE");
 			} else if (event.state().equals(IdleState.ALL_IDLE)) {
 				//未进行读写
-				System.out.println("ALL_IDLE");
+				log.debug("ALL_IDLE");
 			}
 
 		}

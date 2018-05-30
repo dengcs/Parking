@@ -1,5 +1,7 @@
 package com.parking.main;
 
+import org.apache.log4j.Logger;
+
 import com.parking.protobuf.Base.NetMessage;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -12,7 +14,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<NetMessage>{
 
 	private final AttributeKey<ServerSession> SERVERSESSIONKEY = AttributeKey.valueOf("S_SESSION_KEY");
 	
-	
+	private static final Logger log = Logger.getLogger(ServerHandler.class);
 	@Override
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
 		ctx.flush();
@@ -20,7 +22,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<NetMessage>{
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		cause.printStackTrace();
+		//cause.printStackTrace();
 		ctx.close();
 	}
 	
@@ -58,12 +60,12 @@ public class ServerHandler extends SimpleChannelInboundHandler<NetMessage>{
 			
 			if (event.state().equals(IdleState.READER_IDLE)) {
 				//未进行读操作
-				System.out.println("READER_IDLE");
+				log.debug("READER_IDLE");
 			} else if (event.state().equals(IdleState.WRITER_IDLE)) {
-				System.out.println("WRITER_IDLE");
+				log.debug("WRITER_IDLE");
 			} else if (event.state().equals(IdleState.ALL_IDLE)) {
 				//未进行读写
-				System.out.println("ALL_IDLE");
+				log.debug("ALL_IDLE");
 			}
 
 		}
