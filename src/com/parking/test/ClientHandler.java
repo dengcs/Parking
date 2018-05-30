@@ -1,9 +1,9 @@
 package com.parking.test;
 
-import com.parking.protobuf.Awesome.AwesomeMessage;
 import com.parking.protobuf.Base.NetError;
 import com.parking.protobuf.Base.NetHeader;
 import com.parking.protobuf.Base.NetMessage;
+import com.parking.protobuf.Login.Req_Login_LoginIn;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -23,17 +23,18 @@ public class ClientHandler extends SimpleChannelInboundHandler<NetMessage> {
 		NetError.Builder bdError =  NetError.newBuilder();
 		NetHeader.Builder bdHeader =  NetHeader.newBuilder();
 		
-		AwesomeMessage.Builder bdAwesome = AwesomeMessage.newBuilder();
-		bdAwesome.setAwesomeField("dcs---client");
+		Req_Login_LoginIn.Builder bdLoginIn = Req_Login_LoginIn.newBuilder();
+		bdLoginIn.setAccount("dengcs");
+		bdLoginIn.setPassword("12345678");
 		
 		bdError.setCode(0);
 		
 		bdHeader.setUid(1001);
-		bdHeader.setProto("AwesomeMessage");
+		bdHeader.setProto("Req_Login_LoginIn");
 		
 		bdMessage.setError(bdError);
 		bdMessage.setHeader(bdHeader);
-		bdMessage.setPayload(bdAwesome.build().toByteString());
+		bdMessage.setPayload(bdLoginIn.build().toByteString());
 		
 		ch.writeAndFlush(bdMessage.build());
 		

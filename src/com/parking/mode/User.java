@@ -43,9 +43,14 @@ public final class User {
         getNickNameBytes();
 
     /**
-     * <code>uint32 age = 4;</code>
+     * <code>string account = 4;</code>
      */
-    int getAge();
+    java.lang.String getAccount();
+    /**
+     * <code>string account = 4;</code>
+     */
+    com.google.protobuf.ByteString
+        getAccountBytes();
   }
   /**
    * Protobuf type {@code com.parking.mode.UserBase}
@@ -63,7 +68,7 @@ public final class User {
       uid_ = 0L;
       sex_ = 0;
       nickName_ = "";
-      age_ = 0;
+      account_ = "";
     }
 
     @java.lang.Override
@@ -113,9 +118,10 @@ public final class User {
               nickName_ = s;
               break;
             }
-            case 32: {
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              age_ = input.readUInt32();
+              account_ = s;
               break;
             }
           }
@@ -198,13 +204,38 @@ public final class User {
       }
     }
 
-    public static final int AGE_FIELD_NUMBER = 4;
-    private int age_;
+    public static final int ACCOUNT_FIELD_NUMBER = 4;
+    private volatile java.lang.Object account_;
     /**
-     * <code>uint32 age = 4;</code>
+     * <code>string account = 4;</code>
      */
-    public int getAge() {
-      return age_;
+    public java.lang.String getAccount() {
+      java.lang.Object ref = account_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        account_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string account = 4;</code>
+     */
+    public com.google.protobuf.ByteString
+        getAccountBytes() {
+      java.lang.Object ref = account_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        account_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -228,8 +259,8 @@ public final class User {
       if (!getNickNameBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 3, nickName_);
       }
-      if (age_ != 0) {
-        output.writeUInt32(4, age_);
+      if (!getAccountBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, account_);
       }
       unknownFields.writeTo(output);
     }
@@ -250,9 +281,8 @@ public final class User {
       if (!getNickNameBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, nickName_);
       }
-      if (age_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(4, age_);
+      if (!getAccountBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, account_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -276,8 +306,8 @@ public final class User {
           == other.getSex());
       result = result && getNickName()
           .equals(other.getNickName());
-      result = result && (getAge()
-          == other.getAge());
+      result = result && getAccount()
+          .equals(other.getAccount());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -296,8 +326,8 @@ public final class User {
       hash = (53 * hash) + getSex();
       hash = (37 * hash) + NICKNAME_FIELD_NUMBER;
       hash = (53 * hash) + getNickName().hashCode();
-      hash = (37 * hash) + AGE_FIELD_NUMBER;
-      hash = (53 * hash) + getAge();
+      hash = (37 * hash) + ACCOUNT_FIELD_NUMBER;
+      hash = (53 * hash) + getAccount().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -433,7 +463,7 @@ public final class User {
 
         nickName_ = "";
 
-        age_ = 0;
+        account_ = "";
 
         return this;
       }
@@ -460,7 +490,7 @@ public final class User {
         result.uid_ = uid_;
         result.sex_ = sex_;
         result.nickName_ = nickName_;
-        result.age_ = age_;
+        result.account_ = account_;
         onBuilt();
         return result;
       }
@@ -512,8 +542,9 @@ public final class User {
           nickName_ = other.nickName_;
           onChanged();
         }
-        if (other.getAge() != 0) {
-          setAge(other.getAge());
+        if (!other.getAccount().isEmpty()) {
+          account_ = other.account_;
+          onChanged();
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -675,28 +706,71 @@ public final class User {
         return this;
       }
 
-      private int age_ ;
+      private java.lang.Object account_ = "";
       /**
-       * <code>uint32 age = 4;</code>
+       * <code>string account = 4;</code>
        */
-      public int getAge() {
-        return age_;
+      public java.lang.String getAccount() {
+        java.lang.Object ref = account_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          account_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>uint32 age = 4;</code>
+       * <code>string account = 4;</code>
        */
-      public Builder setAge(int value) {
-        
-        age_ = value;
+      public com.google.protobuf.ByteString
+          getAccountBytes() {
+        java.lang.Object ref = account_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          account_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string account = 4;</code>
+       */
+      public Builder setAccount(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        account_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>uint32 age = 4;</code>
+       * <code>string account = 4;</code>
        */
-      public Builder clearAge() {
+      public Builder clearAccount() {
         
-        age_ = 0;
+        account_ = getDefaultInstance().getAccount();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string account = 4;</code>
+       */
+      public Builder setAccountBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        account_ = value;
         onChanged();
         return this;
       }
@@ -764,9 +838,9 @@ public final class User {
   static {
     java.lang.String[] descriptorData = {
       "\n\030protobuf/mode/user.proto\022\020com.parking." +
-      "mode\"C\n\010UserBase\022\013\n\003uid\030\001 \001(\004\022\013\n\003sex\030\002 \001" +
-      "(\r\022\020\n\010nickName\030\003 \001(\t\022\013\n\003age\030\004 \001(\rb\006proto" +
-      "3"
+      "mode\"G\n\010UserBase\022\013\n\003uid\030\001 \001(\004\022\013\n\003sex\030\002 \001" +
+      "(\r\022\020\n\010nickName\030\003 \001(\t\022\017\n\007account\030\004 \001(\tb\006p" +
+      "roto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -785,7 +859,7 @@ public final class User {
     internal_static_com_parking_mode_UserBase_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_parking_mode_UserBase_descriptor,
-        new java.lang.String[] { "Uid", "Sex", "NickName", "Age", });
+        new java.lang.String[] { "Uid", "Sex", "NickName", "Account", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

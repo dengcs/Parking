@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import com.google.protobuf.ByteString;
 import com.parking.handle.AwesomeHandler;
 import com.parking.handle.BaseHandler;
+import com.parking.handle.LoginHandler;
 
 import io.netty.channel.Channel;
 
@@ -21,6 +22,7 @@ public class HandleManager {
 	public void register()
 	{
 		handleQueue.add(new AwesomeHandler());
+		handleQueue.add(new LoginHandler());
 	}
 
 	public void setChannel(Channel channel) {

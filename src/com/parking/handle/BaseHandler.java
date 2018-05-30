@@ -11,21 +11,36 @@ import com.parking.protobuf.Base.NetHeader;
 import com.parking.protobuf.Base.NetMessage;
 
 import io.netty.channel.Channel;
+import io.netty.util.AttributeKey;
 
 public abstract class BaseHandler {
-	private long  uid = 0l; //角色id
 	private Channel channel = null;
 	private Set<String> protoSet = new HashSet<String>();
+	
+	private final AttributeKey<Long> SERVERUIDKEY = AttributeKey.valueOf("S_UID_KEY");
 	
 	public abstract void register();
 	public abstract boolean messageHandle(String protoName, ByteString payload);	
 	
-	public long getUid() {
-		return uid;
+	public Long getUid() {
+		if(channel != null)
+		{
+			Long uid = channel.attr(SERVERUIDKEY).get();
+			if(uid != null)
+			{
+				return uid;
+			}
+		}
+		return 0l;
 	}
-	public void setUid(long uid) {
-		this.uid = uid;
+	
+	public void setUid(Long uid) {
+		if(channel != null)
+		{
+			channel.attr(SERVERUIDKEY).set(uid);
+		}
 	}
+	
 	public void setProtocol(String protoName)
 	{
 		protoSet.add(protoName);
@@ -71,8 +86,14 @@ public abstract class BaseHandler {
 		}
 	}
 	
-	// 应答消息
+	//没有错误的应答
 	public void responseMessage(String protoName, ByteString payload)
+	{
+		this.responseMessage(protoName, payload, 0);
+	}
+	
+	// 应答消息
+	public void responseMessage(String protoName, ByteString payload, int ret)
 	{
 		if(channel != null && channel.isActive())
 		{
@@ -80,8 +101,9 @@ public abstract class BaseHandler {
 			NetError.Builder bdError =  NetError.newBuilder();
 			NetHeader.Builder bdHeader =  NetHeader.newBuilder();
 			
-			bdError.setCode(0);
+			bdError.setCode(ret);
 			
+			long uid = this.getUid();
 			bdHeader.setUid(uid);
 			bdHeader.setProto(protoName);
 			

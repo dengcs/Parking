@@ -1,0 +1,37 @@
+// 登录相关协议
+syntax = "proto3";
+package com.parking.protobuf;
+
+message Req_Login_LoginIn {
+    string account 	= 1; //
+    string password = 2; //
+}
+
+message Resp_Login_LoginIn {
+    int32 		ret 		 = 1; // 0:可以进入系统；1：需要创建角色；
+}
+
+message Req_Login_LoginOut {
+}
+
+message Resp_Login_LoginOut {
+    int32 		ret 		 = 1; //    
+}
+
+message Req_Login_Create {
+	uint32 		sex	 	 	 = 1;
+	string 		nickName 	 = 2;
+	string 		account 	 = 3;
+}
+
+message Resp_Login_Create {
+	uint32 		ret	 	 	 = 1;
+}
+
+message Req_Login_Enter {
+}
+
+message Resp_Login_Enter {
+    uint32 		sex	 	 	 = 1;
+	string 		nickName 	 = 2;
+}

@@ -16,7 +16,6 @@ public class RedisTest {
 		
 		UserBase.Builder user = UserBase.newBuilder();
 		user.setUid(1001);
-		user.setAge(18);
 		user.setNickName("dengcs");
 		
 		jedis.set("1001".getBytes(), user.build().toByteArray());
@@ -24,7 +23,7 @@ public class RedisTest {
 		byte dd[] = jedis.get("1001".getBytes());
 		
 		UserBase juser = UserBase.parseFrom(dd);
-		System.out.println("dcs--"+juser.getUid()+","+juser.getAge()+","+juser.getNickName());
+		System.out.println("dcs--"+juser.getUid()+","+juser.getNickName());
 		 
 		RedisClient.close(jedis);
 	}

@@ -41,7 +41,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<NetMessage>{
 		ServerSession session = ctx.channel().attr(SERVERSESSIONKEY).get();
 		session.onInActive();
 		
-		super.channelInactive(ctx);		
+		super.channelInactive(ctx);
 	}	
 	
 	@Override
